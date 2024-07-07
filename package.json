@@ -1,22 +1,25 @@
 {
-  "name": "artifact--api",
+  "name": "vercel-express-templete",
   "version": "1.0.0",
-  "description": "",
+  "description": "To efficiently set up an Express app with Vercel, use the following boilerplate code.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "isitraghav",
+  "license": "GPL-3.0-only",
   "dependencies": {
-    "axios": "^1.5.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.1",
     "memory-cache": "^0.2.0",
     "request-ip": "^3.3.0",
-    "sanitize": "^2.1.2",
-    "underscore": "^1.13.6"
+    "sanitize": "^2.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
