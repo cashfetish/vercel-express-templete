@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "vercel-express-templete",
-=======
-  "name": "groq-api",
->>>>>>> ca6918f9563ae6cc30a88a8bf7b53d311c3255d2
   "version": "1.0.0",
   "description": "To efficiently set up an Express app with Vercel, use the following boilerplate code.",
   "main": "index.js",
