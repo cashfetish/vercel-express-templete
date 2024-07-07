@@ -3,6 +3,10 @@ const express = require("express");
 const cache = require("memory-cache");
 const app = express();
 const cors = require("cors");
+<<<<<<< HEAD
+=======
+const { default: Groq } = require("groq-sdk");
+>>>>>>> ca6918f9563ae6cc30a88a8bf7b53d311c3255d2
 require("dotenv").config();
 
 app.use(require("sanitize").middleware);

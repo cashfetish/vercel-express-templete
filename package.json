@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "vercel-express-templete",
+=======
+  "name": "groq-api",
+>>>>>>> ca6918f9563ae6cc30a88a8bf7b53d311c3255d2
   "version": "1.0.0",
   "description": "To efficiently set up an Express app with Vercel, use the following boilerplate code.",
   "main": "index.js",
@@ -15,6 +19,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.1",
+    "groq-sdk": "^0.5.0",
     "memory-cache": "^0.2.0",
     "request-ip": "^3.3.0",
     "sanitize": "^2.1.2"
