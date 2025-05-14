@@ -1,10 +1,9 @@
-const { rateLimit } = require("express-rate-limit");
 const express = require("express");
-const cache = require("memory-cache");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
 app.use(express.static(__dirname));
+
 const path = require('path');
 
 // Serve index.html on root
