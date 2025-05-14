@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 app.use(express.static(__dirname));
+const path = require('path');
 
 // Serve index.html on root
 app.get('/', (req, res) => {
