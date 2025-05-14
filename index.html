@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>VoltPort – Smart EV Portable Charger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0F200F;
+      --overlay: rgba(15,32,15,0.8);
+      --text-light: #E6F2E6;
+      --accent-green: #B4FF00;
+      --accent-yellow: #FFBF00;
+      --radius: 8px;
+      --trans: 0.3s;
+      /* Additional colors for SVGs if needed */
+      --svg-grey-light: #777;
+      --svg-grey-dark: #333;
+      --svg-grey-medium: #555;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Poppins',sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      scroll-behavior: smooth;
+    }
+    header {
+      position:sticky; top:0; z-index:100;
+      background: var(--overlay);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+    .navbar {
+      max-width:1200px; margin:auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1rem;
+    }
+    .logo {
+      display:flex; align-items:center;
+    }
+    .logo img { /* Style for the logo.png image */
+      height:40px; margin-right:0.5rem;
+    }
+    .logo span {
+      font-size:1.5rem; font-weight:600;
+      color: var(--accent-green);
+    }
+    .nav-links a {
+      margin-left:1.5rem;
+      color: var(--text-light);
+      text-decoration:none;
+      font-weight:600;
+      transition: color var(--trans);
+    }
+    .nav-links a:hover {
+      color: var(--accent-yellow);
+    }
+    section {
+      max-width:1200px; margin:2rem auto; padding:0 1rem;
+    }
+    h2 {
+      text-align:center;
+      font-size:2rem;
+      margin-bottom:1.5rem;
+      color: var(--accent-green);
+      text-shadow:0 0 8px rgba(180,255,0,0.7);
+    }
+    /* Hero */
+    .hero {
+      display:flex; flex-wrap:wrap; align-items:center; padding:2rem 0;
+    }
+    .hero-text {
+      flex:1; min-width:280px;
+    }
+    .hero-text h1 {
+      font-size:2.5rem; margin-bottom:1rem;
+      color: var(--accent-green);
+      text-shadow:0 0 8px rgba(180,255,0,0.8);
+    }
+    .hero-text p {
+      margin-bottom:1.5rem; color:#CBD5CB;
+    }
+    .btn {
+      display:inline-block;
+      background: var(--accent-yellow);
+      color: var(--bg-dark);
+      padding:.75rem 1.5rem;
+      border:none;
+      border-radius:var(--radius);
+      font-weight:600;
+      transition: background var(--trans), transform var(--trans);
+      cursor:pointer;
+    }
+    .btn:hover {
+      background: var(--accent-green);
+      transform: translateY(-2px);
+    }
+    .hero-image {
+      flex:1; min-width:280px; text-align:center;
+    }
+    /* Feature Pairs */
+    .feature-pair {
+      display:flex; flex-wrap:wrap; align-items:center; margin-bottom:3rem;
+    }
+    .feature-pair:nth-child(even) .feature-img-container { order:2; }
+    .feature-img-container {
+      flex:1; min-width:280px; max-width:400px;
+    }
+    .feature-content {
+      flex:1; min-width:280px; padding:1rem 2rem;
+    }
+    .feature-content h3 {
+      font-size:1.5rem; margin-bottom:1rem;
+      color: var(--accent-yellow);
+      text-shadow:0 0 6px rgba(255,191,0,0.6);
+    }
+    .feature-content p {
+      color:#CBD5CB; line-height:1.6;
+    }
+    /* Animation Demo - Unchanged */
+    .anim-container {
+      position:relative; width:320px; height:180px; margin:auto;
+    }
+    .anim-car, .anim-charger, .anim-cable {
+      position:absolute;
+    }
+    .anim-car {
+      bottom:0; left:0; width:200px;
+    }
+    .anim-charger {
+      top:40px; right:0; width:50px;
+    }
+    .anim-cable {
+      top:75px; left:180px;
+      width:100px; height:6px;
+      background: var(--accent-green);
+      transform-origin:left;
+      animation: cable 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes cable {
+      from {transform:rotate(0deg) translateX(0);}
+      to   {transform:rotate(-25deg) translateX(-15px);}
+    }
+    /* About Us */
+    #about-us p {
+      max-width:800px; margin:auto;
+      text-align:center; color:#CBD5CB; line-height:1.6;
+    }
+    .about-cards {
+      display:flex; flex-wrap:wrap;
+      justify-content:center; gap:2rem;
+      margin-top:2rem;
+    }
+    .about-card {
+      flex:1 1 250px; max-width:300px;
+      text-align:center;
+    }
+    .about-card h3 {
+      color: var(--accent-yellow);
+      margin-bottom:.5rem;
+    }
+    /* Processes */
+    .processes {
+      display:grid; grid-template-columns:1fr; gap:2rem;
+    }
+    @media (min-width:768px){
+      .processes {grid-template-columns:repeat(3,1fr);}
+    }
+    .process-item {
+      background: var(--overlay);
+      border-radius:var(--radius);
+      padding:1rem;
+      box-shadow:0 2px 8px rgba(0,0,0,0.5);
+      text-align:center;
+    }
+    .process-item ul {
+      list-style:disc; padding-left:1.5rem; text-align:left;
+    }
+    /* EV Facts */
+    .facts-list {
+      max-width:600px; margin:auto;
+      list-style:none; padding-left:0;
+    }
+    .facts-list li {
+      background: var(--overlay);
+      margin-bottom:1rem; padding:1rem;
+      border-radius:var(--radius);
+      box-shadow:0 2px 8px rgba(0,0,0,0.5);
+    }
+    /* Contact */
+    .contact-form {
+      max-width:400px; margin:auto;
+      display:flex; flex-direction:column; gap:1rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding:.75rem; border:1px solid #444;
+      border-radius:var(--radius);
+      background:#1A251A; color:var(--text-light);
+    }
+    .contact-form button {
+      background:var(--accent-yellow); color:var(--bg-dark);
+      padding:.75rem; border:none; border-radius:var(--radius);
+      font-weight:600; cursor:pointer;
+      transition:background var(--trans);
+    }
+    .contact-form button:hover {
+      background:var(--accent-green);
+    }
+    /* Scroll Buttons */
+    .scroll-btns {
+      position:fixed; right:20px; bottom:20px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .scroll-btns button {
+      background:var(--accent-yellow); border:none;
+      padding:.5rem; border-radius:50%; cursor:pointer;
+      box-shadow:0 2px 6px rgba(0,0,0,0.5);
+      transition:background var(--trans), transform var(--trans);
+    }
+    .scroll-btns button:hover {
+      background:var(--accent-green);
+      transform:translateY(-2px);
+    }
+
+    /* --- SVG Styles --- */
+    .hero-svg-container,
+    .feature-svg-container,
+    .process-svg-container,
+    .about-svg-container {
+        background-color: rgba(255,255,255,0.02); /* Subtle background for SVG container */
+        border-radius: var(--radius);
+        padding: 10px; /* Optional padding around SVG */
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .hero-svg {
+      width: 100%;
+      height: 300px;
+      max-width: 450px; /* Max width for hero SVG */
+      display: block;
+      margin: 0 auto; /* Center if max-width is used */
+    }
+    .feature-svg {
+      width: 100%;
+      height: 250px;
+      display: block;
+    }
+    .process-svg {
+      width: 100%;
+      height: 200px;
+      display: block;
+      margin-bottom: 1rem; /* Original margin */
+    }
+    .about-svg {
+      width: 100%;
+      height: 200px;
+      display: block;
+      margin-bottom: 1rem; /* Original margin */
+    }
+    /* --- End SVG Styles --- */
+
+    @media (max-width:768px){
+      .feature-pair,
+      .about-cards {flex-direction:column;}
+      .feature-pair:nth-child(even) .feature-img-container { order:0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="VoltPort Logo"> <span>VoltPort</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#features">Features</a>
+        <a href="#animation">Demo</a>
+        <a href="#processes">Process</a>
+        <a href="#facts">EV Facts</a>
+        <a href="#about-us">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="hero" data-aos="fade-up">
+    <div class="hero-text">
+      <h1>Never Run Out of Charge</h1>
+      <p>VoltPort is your portable EV charger with built-in solar backup. Charge anywhere, anytime.</p>
+      <button class="btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});">
+        Get Started
+      </button>
+    </div>
+    <div class="hero-image hero-svg-container" data-aos="fade-left">
+      <svg viewBox="0 0 200 100" class="hero-svg" aria-label="Electric vehicle charging with solar power">
+        <rect x="30" y="50" width="100" height="30" fill="var(--svg-grey-light)" rx="5"/>
+        <rect x="40" y="40" width="60" height="20" fill="#666" rx="3"/>
+        <circle cx="50" cy="80" r="10" fill="var(--svg-grey-dark)"/>
+        <circle cx="110" cy="80" r="10" fill="var(--svg-grey-dark)"/>
+        <rect x="150" y="40" width="20" height="40" fill="var(--accent-green)" rx="3"/>
+        <path d="M130 60 Q 140 50 150 60" stroke="var(--accent-green)" stroke-width="4" fill="none"/>
+        <circle cx="170" cy="20" r="10" fill="var(--accent-yellow)"/>
+        <line x1="170" y1="5" x2="170" y2="0" stroke="var(--accent-yellow)" stroke-width="2"/>
+        <line x1="185" y1="20" x2="190" y2="20" stroke="var(--accent-yellow)" stroke-width="2"/>
+        <line x1="170" y1="35" x2="170" y2="40" stroke="var(--accent-yellow)" stroke-width="2"/>
+        <line x1="155" y1="20" x2="150" y2="20" stroke="var(--accent-yellow)" stroke-width="2"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="features" data-aos="fade-up">
+    <h2>Key Features</h2>
+    <div class="feature-pair">
+      <div class="feature-img-container feature-svg-container">
+        <svg viewBox="0 0 100 70" class="feature-svg" aria-label="Solar panel">
+          <rect x="10" y="10" width="80" height="50" fill="var(--svg-grey-dark)" rx="5"/>
+          <rect x="15" y="15" width="70" height="40" fill="#444" rx="3"/>
+          <line x1="15" y1="25" x2="85" y2="25" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <line x1="15" y1="35" x2="85" y2="35" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <line x1="15" y1="45" x2="85" y2="45" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <line x1="35" y1="15" x2="35" y2="55" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <line x1="50" y1="15" x2="50" y2="55" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <line x1="65" y1="15" x2="65" y2="55" stroke="var(--svg-grey-medium)" stroke-width="2"/>
+          <circle cx="80" cy="15" r="8" fill="var(--accent-yellow)"/>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3>Solar Backup</h3>
+        <p>Deployable 200W solar panel ensures charging during power outages and remote stops.</p>
+      </div>
+    </div>
+    <div class="feature-pair">
+      <div class="feature-img-container feature-svg-container">
+        <svg viewBox="0 0 100 70" class="feature-svg" aria-label="Fast charging battery">
+          <rect x="25" y="15" width="50" height="30" fill="var(--svg-grey-light)" rx="3"/>
+          <rect x="45" y="10" width="10" height="5" fill="var(--svg-grey-medium)" rx="1"/>
+          <polygon points="40,40 50,40 45,50 55,50 40,65 48,50 40,50" fill="var(--accent-yellow)"/>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3>Fast Charging</h3>
+        <p>Up to 10kW output capability delivers a rapid charge so you're back on the road quickly.</p>
+      </div>
+    </div>
+    <div class="feature-pair">
+      <div class="feature-img-container feature-svg-container">
+         <svg viewBox="0 0 100 70" class="feature-svg" aria-label="Compact portable charger">
+          <rect x="20" y="20" width="60" height="30" fill="var(--svg-grey-light)" rx="5"/>
+          <rect x="25" y="25" width="50" height="20" fill="#666" rx="3"/>
+          <line x1="50" y1="20" x2="50" y2="15" stroke="var(--svg-grey-medium)" stroke-width="3"/>
+          <line x1="45" y1="15" x2="55" y2="15" stroke="var(--svg-grey-medium)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="20" y1="35" x2="15" y2="35" stroke="var(--accent-green)" stroke-width="2"/>
+          <line x1="80" y1="35" x2="85" y2="35" stroke="var(--accent-green)" stroke-width="2"/>
+           <line x1="17" y1="32" x2="17" y2="38" stroke="var(--accent-green)" stroke-width="2"/>
+           <line x1="83" y1="32" x2="83" y2="38" stroke="var(--accent-green)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3>Compact Design</h3>
+        <p>Lightweight and foldable design fits neatly in any vehicle trunk for ultimate portability.</p>
+      </div>
+    </div>
+    <div class="feature-pair">
+      <div class="feature-img-container feature-svg-container">
+        <svg viewBox="0 0 100 70" class="feature-svg" aria-label="Smartphone with monitoring app">
+          <rect x="25" y="10" width="50" height="50" fill="var(--svg-grey-dark)" rx="5"/>
+          <rect x="30" y="15" width="40" height="40" fill="var(--svg-grey-medium)"/>
+          <polyline points="35,45 45,35 55,40 65,30" stroke="var(--accent-green)" stroke-width="3" fill="none"/>
+          <circle cx="65" cy="30" r="2" fill="var(--accent-green)"/>
+        </svg>
+      </div>
+      <div class="feature-content">
+        <h3>Smart Monitoring</h3>
+        <p>Seamless app integration provides real-time logs, battery health data, and scheduling features.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="animation" data-aos="fade-up">
+    <h2>Interactive Demo</h2>
+    <div class="anim-container">
+      <svg class="anim-car" viewBox="0 0 200 100">
+        <rect x="0" y="30" width="200" height="40" fill="var(--svg-grey-light)"/> <circle cx="50" cy="80" r="10" fill="var(--svg-grey-dark)"/> <circle cx="150" cy="80" r="10" fill="var(--svg-grey-dark)"/> </svg>
+      <div class="anim-cable"></div>
+      <svg class="anim-charger" viewBox="0 0 50 50">
+        <rect x="0" y="10" width="20" height="30" fill="var(--accent-green)"/>
+        <rect x="20" y="20" width="30" height="10" fill="var(--svg-grey-dark)"/> </svg>
+    </div>
+  </section>
+
+  <section id="processes" data-aos="fade-up">
+    <h2>Our Charging Process</h2>
+    <div class="processes">
+      <div class="process-item process-svg-container">
+        <svg viewBox="0 0 100 70" class="process-svg" aria-label="Plug and outlet">
+          <rect x="10" y="20" width="30" height="30" fill="var(--svg-grey-medium)" rx="3"/>
+          <circle cx="20" cy="30" r="2" fill="var(--svg-grey-dark)"/>
+          <circle cx="30" cy="30" r="2" fill="var(--svg-grey-dark)"/>
+          <circle cx="25" cy="40" r="2" fill="var(--svg-grey-dark)"/>
+          <rect x="50" y="22" width="30" height="26" fill="var(--svg-grey-light)" rx="3"/>
+          <rect x="75" y="25" width="10" height="5" fill="#ccc"/>
+          <rect x="75" y="35" width="10" height="5" fill="#ccc"/>
+          <path d="M80 48 Q 85 55 70 55 L 40 55" stroke="#444" stroke-width="4" fill="none"/>
+        </svg>
+        <h3>Step 1: Connect</h3>
+        <ul>
+          <li>Plug VoltPort into outlet</li>
+          <li>Ensure secure connection</li>
+          <li>Indicator lights on</li>
+        </ul>
+      </div>
+      <div class="process-item process-svg-container">
+        <svg viewBox="0 0 100 70" class="process-svg" aria-label="Battery charging with solar icon">
+          <rect x="25" y="15" width="50" height="30" fill="var(--svg-grey-dark)" rx="3"/>
+          <rect x="45" y="10" width="10" height="5" fill="#222" rx="1"/>
+          <rect x="28" y="18" width="44" height="24" fill="var(--accent-green)"/>
+           <circle cx="70" cy="15" r="8" fill="var(--accent-yellow)"/>
+        </svg>
+        <h3>Step 2: Charge</h3>
+        <ul>
+          <li>Solar panel deploys automatically</li>
+          <li>MPPT tracks max power</li>
+          <li>Battery fills completely</li>
+        </ul>
+      </div>
+      <div class="process-item process-svg-container">
+       <svg viewBox="0 0 100 70" class="process-svg" aria-label="EV connected to charger">
+          <rect x="10" y="30" width="50" height="20" fill="var(--svg-grey-light)" rx="3"/>
+          <rect x="15" y="23" width="30" height="10" fill="#666" rx="2"/>
+          <circle cx="20" cy="50" r="5" fill="var(--svg-grey-dark)"/>
+          <circle cx="50" cy="50" r="5" fill="var(--svg-grey-dark)"/>
+          <rect x="70" y="25" width="15" height="25" fill="var(--accent-green)" rx="2"/>
+          <path d="M60 35 Q 65 30 70 35" stroke="var(--accent-green)" stroke-width="3" fill="none"/>
+        </svg>
+        <h3>Step 3: Power EV</h3>
+        <ul>
+          <li>Connect charger to vehicle</li>
+          <li>Start via app</li>
+          <li>Monitor real-time status</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="facts" data-aos="fade-up">
+    <h2>Did You Know?</h2>
+    <ul class="facts-list">
+      <li>🔌 EV charging efficiency can exceed 90% vs. 60% for combustion engines.</li>
+      <li>☀️ Solar backup reduces carbon footprint by up to 25% per cycle.</li>
+      <li>⚡ Fast chargers add 100 miles in under 30 min.</li>
+      <li>🌡️ Extreme temps affect battery performance.</li>
+      <li>📶 Smart charging saves 20% on off-peak rates.</li>
+    </ul>
+  </section>
+
+  <section id="about-us" data-aos="fade-up">
+    <h2>About Us</h2>
+    <p>At VoltPort, we are a team of engineers and sustainability enthusiasts dedicated to revolutionizing the EV experience. Founded in 2025, our mission is to empower EV owners with independence and reliability through innovative, portable charging solutions.</p>
+    <div class="about-cards">
+      <div class="about-card about-svg-container">
+        <svg viewBox="0 0 100 70" class="about-svg" aria-label="Team icons">
+          <circle cx="25" cy="25" r="8" fill="var(--svg-grey-light)"/>
+          <rect x="20" y="33" width="10" height="20" fill="var(--svg-grey-light)" rx="3"/>
+          <circle cx="50" cy="20" r="8" fill="var(--text-light)"/>
+          <rect x="45" y="28" width="10" height="25" fill="var(--text-light)" rx="3"/>
+          <circle cx="75" cy="25" r="8" fill="var(--svg-grey-light)"/>
+          <rect x="70" y="33" width="10" height="20" fill="var(--svg-grey-light)" rx="3"/>
+        </svg>
+        <h3>Our Team</h3>
+        <p>Passionate engineers and designers building the future of EV charging.</p>
+      </div>
+      <div class="about-card about-svg-container">
+        <svg viewBox="0 0 100 70" class="about-svg" aria-label="Globe symbolizing global vision">
+          <circle cx="50" cy="35" r="25" fill="var(--accent-green)"/>
+          <path d="M35,30 Q40,20 50,30 T65,35" stroke="var(--bg-dark)" stroke-width="3" fill="none"/>
+          <path d="M40,45 Q50,55 60,45" stroke="var(--bg-dark)" stroke-width="3" fill="none"/>
+          <path d="M50,20 Q60,25 60,35" stroke="var(--bg-dark)" stroke-width="2" fill="none"/>
+        </svg>
+        <h3>Our Vision</h3>
+        <p>To make EV charging as accessible as plugging into a socket, anywhere on the planet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" data-aos="fade-up">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+      <textarea rows="4" placeholder="Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <div class="scroll-btns">
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'});">⬆</button>
+    <button onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});">⬇</button>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration:800, once:true });
+  </script>
+</body>
+</html>
